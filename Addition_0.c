@@ -15,7 +15,7 @@ int main()      //int main() is a function which represents that the function re
    
    sum = a + b;          //The value of a+b is assigned to the sum variable.
    
-   printf("The Sum of %d and %d is %d",a,b,sum);       //Finally we print the value of sum.
+   printf("The Sum of %d + %d = %d",a,b,sum);       //Finally we print the value of sum.
    
   return 0;  //return 0 it indicates that our program has been run successfully and we terminate our main function with this return statement. 
 }
