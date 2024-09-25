@@ -6,7 +6,7 @@
 - 
 - 💞️ I’m looking to collaborate on Automation and AI projects.
 - 
-- 📫 How to reach me - roypushpesh00@outlook.com
+- 📫 How to reach me - roypushpesh@outlook.com
 
 <!---
 pkrRepo00/pkrRepo00 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
