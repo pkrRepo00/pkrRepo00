@@ -1,10 +1,10 @@
-- 👋 Hi, I’m @pkrRepo00
+- 👋 Hi, Myself Pushpesh Kumar Roy.
 - 
-- 👀 I’m interested in Ethical hacking, Networking, Coding.
+- 👀 I’m interested in Cybersecurity, Ethical hacking, Networking, Coding.
 - 
-- 🌱 I’m currently learning C and C++ in programming lang. Side by side HTML,CSS,JAVASCRIPT,PHP.
+- 🌱 I’m currently learning Python for Scripting and Making some tools.
 - 
-- 💞️ I’m looking to collaborate on Automation and AI projects.
+- 💞️ I’m looking to collaborate on Cybersecurity related projects.
 - 
 - 📫 How to reach me - roypushpesh@outlook.com
 
