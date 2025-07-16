@@ -1,6 +1,6 @@
 - 👋 Hi, Myself Pushpesh Kumar Roy.
 - 
-- 👀 I’m interested in Cybersecurity, Ethical hacking, Networking, Coding.
+- 👀 I’m interested in Cybersecurity, Ethical hacking, Networking, Coding, AI.
 - 
 - 🌱 I’m currently learning Python for Scripting and Making some tools.
 - 
