@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
-const [headers, html, cloud, config, schema, manifest, app, worker, offline] = await Promise.all([
+const [headers, html, cloud, config, schema, manifest, app, worker, offline, canonicalRedirect] = await Promise.all([
   read("../vercel.json"), read("../index.html"), read("../cloud.js"),
-  read("../config.js"), read("../supabase/schema.sql"), read("../manifest.json"), read("../app.js"), read("../sw.js"), read("../offline.html")
+  read("../config.js"), read("../supabase/schema.sql"), read("../manifest.json"), read("../app.js"), read("../sw.js"), read("../offline.html"), read("../canonical-redirect.js")
 ]);
 const headerConfig = JSON.parse(headers).headers.flatMap((route) => route.headers);
 const header = (name) => headerConfig.find((item) => item.key.toLowerCase() === name.toLowerCase())?.value;
@@ -63,6 +63,15 @@ test("SEO and install metadata are present", () => {
   assert.match(html, /rel="canonical"/);
   assert.match(html, /rel="manifest"/);
   assert.equal(JSON.parse(manifest).display, "standalone");
+});
+
+
+test("legacy Cloudflare Pages auth returns are forwarded to the canonical Vercel host", () => {
+  assert.match(config, /SITE_URL = "https:\/\/prompt-arch-orpin\.vercel\.app"/);
+  assert.match(canonicalRedirect, /window\.location\.hostname === "prompt-arch\.pages\.dev"/);
+  assert.match(canonicalRedirect, /window\.location\.pathname \+ window\.location\.search \+ window\.location\.hash/);
+  assert.match(canonicalRedirect, /window\.location\.replace\(target\.href\)/);
+  assert.ok(html.indexOf('src="./canonical-redirect.js"') < html.indexOf('src="./cloud.js"'));
 });
 
 test("offline shell is registered and caches only same-origin GET assets", () => {
