@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      if (location.hostname === "prompt-arch.pages.dev") {
+        var target = new URL(location.href);
+        target.protocol = "https:";
+        target.hostname = "prompt-arch-orpin.vercel.app";
+        target.port = "";
+        location.replace(target.href);
+      }
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101010">
