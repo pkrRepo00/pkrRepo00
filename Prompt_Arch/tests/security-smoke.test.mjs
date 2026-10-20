@@ -20,8 +20,8 @@ test("production response security headers are configured", () => {
 
 test("browser configuration contains no server-side secret", () => {
   assert.match(config, /sb_publishable_[A-Za-z0-9_-]+/);
-  assert.doesNotMatch(config, /SUPABASE_SERVICE_ROLE_KEY\\s*=\\s*["\\x27][^"\\x27]+/i);
-  assert.doesNotMatch(config, /-----BEGIN [A-Z ]+PRIVATE KEY-----/);
+  assert.equal(config.includes("SUPABASE_SERVICE_ROLE_KEY="), false);
+  assert.equal(config.includes("-----BEGIN"), false);
 });
 
 test("community uploads enforce allowlisted MIME and a 25 MiB client limit", () => {
@@ -39,8 +39,8 @@ test("RLS keeps permanent prompt writes admin-only and submissions pending", () 
 });
 
 test("dynamic preview metadata escapes HTML-sensitive characters", () => {
-  assert.match(cloud, /const esc=v=>String/);
-  assert.match(cloud, /replace\\(\\/\\[&<>/);
+  assert.equal(cloud.includes("const esc=v=>String"), true);
+  assert.equal(cloud.includes('replace(/[&<>'), true);
   assert.match(cloud, /esc\(item\.media_url\)/);
   assert.match(cloud, /esc\(item\.title\)/);
 });
