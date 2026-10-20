@@ -66,6 +66,30 @@
   <dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailTitle"><div class="detail-header"><div class="detail-meta"><span class="detail-category" id="detailCategory">UNCATEGORIZED</span><span id="detailDate"></span></div><button class="icon-button close-dialog" id="closeDetail" aria-label="Close prompt">×</button></div><h2 id="detailTitle"></h2><div id="detailPreview" class="detail-preview" hidden></div><div id="detailMetadata" class="detail-metadata" hidden></div><div class="detail-tags" id="detailTags"></div><pre id="detailBody" class="detail-body"></pre><div class="detail-footer"><span class="private-note"><span>●</span> LOCAL ARCHIVE</span><div><button class="secondary-button" id="detailEdit">Edit</button><button class="new-prompt" id="detailCopy"><span>▣</span> Copy prompt</button></div></div></dialog>
   <dialog class="small-dialog" id="categoryDialog" aria-labelledby="categoryTitle"><form id="categoryForm" method="dialog"><div class="dialog-header"><div><div class="eyebrow muted-eyebrow">MAKE IT YOURS</div><h2 id="categoryTitle">New collection<span class="heading-period">.</span></h2></div><button type="button" class="icon-button close-dialog" id="closeCategory" aria-label="Close dialog">×</button></div><label class="field-label" for="categoryName">COLLECTION NAME</label><input class="text-field" id="categoryName" maxlength="32" required placeholder="e.g. Creative writing"><div class="dialog-foot"><span></span><div><button type="button" class="secondary-button" id="cancelCategory">Cancel</button><button type="submit" class="new-prompt">Create collection</button></div></div></form></dialog>
   <dialog class="small-dialog" id="aboutDialog" aria-labelledby="aboutTitle"><div class="dialog-header"><div><div class="eyebrow muted-eyebrow">A TOOL FOR THOUGHTFUL WORK</div><h2 id="aboutTitle">Prompt Arch<span class="heading-period">.</span></h2></div><button type="button" class="icon-button close-dialog" id="closeAbout" aria-label="Close dialog">×</button></div><p class="about-copy">A personal prompt library designed like an archive: quiet, deliberate, and built around the ideas worth keeping.</p><div class="about-facts"><span>STORAGE</span><b>Browser local storage</b><span>PRIVACY</span><b>Your prompts stay on this device</b><span>PORTABILITY</span><b>Export your library as JSON anytime</b></div><button class="new-prompt full-button" id="aboutExport">↗ Export my library</button></dialog>
+  <dialog class="small-dialog auth-dialog" id="authDialog" aria-labelledby="authTitle">
+    <form id="authForm" novalidate>
+      <div class="dialog-header">
+        <div><div class="eyebrow muted-eyebrow">PROMPT ARCH ACCOUNT</div><h2 id="authTitle">Welcome back<span class="heading-period">.</span></h2></div>
+        <button type="button" class="icon-button" id="authClose" aria-label="Close sign in">×</button>
+      </div>
+      <p class="auth-intro">Sign in to share prompts, or create an account to join the community.</p>
+      <div class="auth-mode-tabs" role="tablist" aria-label="Account action">
+        <button type="button" id="authLoginTab" class="auth-mode-tab active" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" id="authSignupTab" class="auth-mode-tab" role="tab" aria-selected="false">Create account</button>
+      </div>
+      <label class="field-label" for="authEmail">EMAIL ADDRESS</label>
+      <input class="text-field" id="authEmail" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com">
+      <label class="field-label" for="authPassword">PASSWORD <span>At least 6 characters</span></label>
+      <input class="text-field" id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="Enter your password">
+      <p class="auth-help" id="authHelp">Use your email and password, or continue with Google.</p>
+      <p class="auth-message" id="authMessage" role="status" aria-live="polite" hidden></p>
+      <button class="new-prompt full-button" id="authSubmit" type="submit">Sign in with email ↗</button>
+      <div class="auth-separator"><span>OR</span></div>
+      <button class="secondary-button auth-google full-button" id="authGoogle" type="button">Continue with Google ↗</button>
+      <button class="text-button auth-forgot" id="authForgot" type="button">Forgot password?</button>
+      <p class="auth-privacy">Your account is for Prompt Arch only. Never share passwords or API keys in prompts.</p>
+    </form>
+  </dialog>
   <div class="toast-region" id="toastRegion" role="status" aria-live="polite"></div>
   <script src="./app.js" defer></script><script type="module" src="./cloud.js"></script>
 </body>
