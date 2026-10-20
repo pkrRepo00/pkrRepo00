@@ -298,7 +298,28 @@
   $$(".nav-item[data-view]").forEach(button => button.addEventListener("click", () => { setView(button.dataset.view); els.sidebar.classList.remove("open"); })); $("#categoryNav").addEventListener("click", event => { const button = event.target.closest("[data-category]"); if (!button) return; activeCategory = button.dataset.category; activeView = "all"; quickFilter = "all"; render(); });
   $$(".filter-chip").forEach(button => button.addEventListener("click", () => { quickFilter = button.dataset.filter; if (quickFilter === "favorites") activeView = "favorites"; else if (activeView === "favorites") activeView = "all"; render(); }));
   els.grid.addEventListener("click", event => { const button = event.target.closest("button[data-action]"); if (!button) return; const prompt = findPrompt(button.dataset.id); if (!prompt) return; switch (button.dataset.action) { case "open": openDetail(prompt.id); break; case "copy": copyText(promptTextForClipboard(prompt)); break; case "favorite": prompt.favorite = !prompt.favorite; prompt.updatedAt = new Date().toISOString(); save(); render(); break; case "more": { const action = window.prompt("Enter E to edit, D to delete, or C to cancel.", "E"); if (action?.toLowerCase() === "e") openEditor(prompt); else if (action?.toLowerCase() === "d") void deletePrompt(prompt.id); break; } } });
-  $("#gridViewBtn").addEventListener("click", () => { listView = false; els.grid.classList.remove("list-view"); $("#gridViewBtn").classList.add("active"); $("#listViewBtn").classList.remove("active"); }); $("#listViewBtn").addEventListener("click", () => { listView = true; els.grid.classList.add("list-view"); $("#listViewBtn").classList.add("active"); $("#gridViewBtn").classList.remove("active"); }); $("#mobileMenu").addEventListener("click", () => els.sidebar.classList.toggle("open"));
+  $("#gridViewBtn").addEventListener("click", () => { listView = false; els.grid.classList.remove("list-view"); $("#gridViewBtn").classList.add("active"); $("#listViewBtn").classList.remove("active"); }); $("#listViewBtn").addEventListener("click", () => { listView = true; els.grid.classList.add("list-view"); $("#listViewBtn").classList.add("active"); $("#gridViewBtn").classList.remove("active"); });
+  const mobileMenu = $("#mobileMenu"), sidebarBackdrop = $("#sidebarBackdrop");
+  function setSidebarOpen(open) {
+    const shouldOpen = Boolean(open) && window.matchMedia("(max-width: 760px)").matches;
+    els.sidebar.classList.toggle("open", shouldOpen);
+    mobileMenu.setAttribute("aria-expanded", String(shouldOpen));
+    mobileMenu.setAttribute("aria-label", shouldOpen ? "Close navigation" : "Open navigation");
+    mobileMenu.querySelector(".menu-glyph").textContent = shouldOpen ? "×" : "☰";
+    sidebarBackdrop.hidden = !shouldOpen;
+    document.body.classList.toggle("sidebar-open", shouldOpen);
+  }
+  mobileMenu.addEventListener("click", () => setSidebarOpen(!els.sidebar.classList.contains("open")));
+  sidebarBackdrop.addEventListener("click", () => setSidebarOpen(false));
+  window.addEventListener("resize", () => { if (!window.matchMedia("(max-width: 760px)").matches) setSidebarOpen(false); });
+  els.sidebar.querySelectorAll("a, button").forEach(item => item.addEventListener("click", event => {
+    if (event.target.closest("#addCategoryBtn")) return;
+    if (window.matchMedia("(max-width: 760px)").matches) setSidebarOpen(false);
+  }));
+  document.addEventListener("click", event => {
+    if (els.sidebar.classList.contains("open") && !els.sidebar.contains(event.target) && !mobileMenu.contains(event.target)) setSidebarOpen(false);
+  });
+  document.addEventListener("keydown", event => { if (event.key === "Escape" && els.sidebar.classList.contains("open")) { setSidebarOpen(false); mobileMenu.focus(); } });
   document.addEventListener("keydown", event => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); els.search.focus(); } if (!event.metaKey && !event.ctrlKey && !event.altKey && event.key.toLowerCase() === "n" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName) && !document.querySelector("dialog[open]")) { event.preventDefault(); openEditor(); } });
   load(); render();
 })();
