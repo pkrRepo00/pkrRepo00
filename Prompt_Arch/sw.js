@@ -25,10 +25,7 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).then((response) => {
-      if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put("./index.html", response.clone()));
-      return response;
-    }).catch(async () => (await caches.match(request)) || (await caches.match("./index.html")) || (await caches.match("./offline.html"))));
+    event.respondWith(fetch(request).catch(async () => (await caches.match(request)) || (await caches.match("./index.html")) || (await caches.match("./offline.html"))));
     return;
   }
 
