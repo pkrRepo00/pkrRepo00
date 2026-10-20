@@ -146,3 +146,10 @@ video.prompt-card-media{object-fit:contain}
 .auth-privacy{margin:19px 0 0;padding-top:14px;border-top:1px solid #292925;color:#64645d;font-size:10px;line-height:1.6}
 .auth-dialog button:disabled{opacity:.55;cursor:wait}
 @media(max-width:480px){.auth-dialog form{padding:20px}}
+
+/* Mobile navigation close affordance, backdrop, and safe-area handling. */
+.sidebar-backdrop{display:block;position:fixed;inset:0;z-index:19;border:0;padding:0;background:#0009;backdrop-filter:blur(2px)}
+.sidebar-backdrop[hidden]{display:none!important}
+.menu-glyph{display:block;line-height:1;font-size:19px}
+@media(max-width:760px){.sidebar{padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}.sidebar.open{box-shadow:20px 0 50px #0008}.mobile-menu[aria-expanded="true"]{background:#292925;border-color:#66665d;color:#fff;position:relative;z-index:21}body.sidebar-open{overflow:hidden;touch-action:none}.sidebar-backdrop{touch-action:pan-y}.topbar{position:sticky;top:0;z-index:18;background:#101010f2;backdrop-filter:blur(12px)}}
+@media(prefers-reduced-motion:reduce){.sidebar{transition:none}}
