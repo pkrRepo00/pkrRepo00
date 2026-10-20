@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101010">
   <meta name="description" content="Prompt Arch — discover curated AI prompts and share your own with the community.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Prompt Arch — Your prompt library">
+  <meta property="og:description" content="Discover curated AI prompts, organize your own library, and share useful prompts with the community.">
+  <meta property="og:url" content="https://prompt-arch-orpin.vercel.app/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://prompt-arch-orpin.vercel.app/">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <title>Prompt Arch — Your prompt library</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +91,7 @@
       <label class="field-label" for="authPassword">PASSWORD <span>At least 6 characters</span></label>
       <input class="text-field" id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="Enter your password">
       <p class="auth-help" id="authHelp">Use your email and password, or continue with Google.</p>
+      <button class="auth-forgot-link" id="authForgotPassword" type="button">Forgot password?</button>
       <p class="auth-message" id="authMessage" role="status" aria-live="polite" hidden></p>
       <button class="new-prompt full-button" id="authSubmit" type="submit">Sign in with email ↗</button>
       <div class="auth-separator"><span>OR</span></div>
