@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Prompt Arch — discover, save, and share prompts for AI text, agents, automations, image, and video generation.">
+  <title>Prompt Arch — Your prompt library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Prompt Arch home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-name">prompt<span>arch</span><small>PERSONAL PROMPT LIBRARY</small></span>
+      </a>
+      <button class="new-prompt side-new" id="newPromptBtn"><span>＋</span> New prompt <kbd>N</kbd></button>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Prompt views">
+        <button class="nav-item active" data-view="all"><span class="nav-icon">▦</span><span>All prompts</span><span class="nav-count" id="allCount">0</span></button>
+        <button class="nav-item" data-view="favorites"><span class="nav-icon">✳</span><span>Starred</span><span class="nav-count" id="starCount">0</span></button>
+        <button class="nav-item" data-view="recent"><span class="nav-icon">◷</span><span>Recently added</span></button>
+      </nav>
+      <div class="side-label category-heading">COLLECTIONS <button id="addCategoryBtn" aria-label="Add collection" title="Add collection">＋</button></div>
+      <nav class="nav-list categories" id="categoryNav" aria-label="Collections"></nav>
+      <div class="sidebar-spacer"></div>
+      <div class="storage-card">
+        <div class="storage-top"><span class="storage-dot"></span><span>LOCAL ARCHIVE</span><span class="storage-status">ON</span></div>
+        <p>Your prompts stay on<br>this device.</p>
+        <div class="storage-bottom"><span id="storageCount">0 prompts stored</span><button id="exportBtn" title="Export library">↗ Export</button></div>
+      </div>
+      <div class="sidebar-footer"><span class="tiny-mark">A.</span><span>Built for the way you think.</span><span class="version">v1.0</span></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb"><span>LIBRARY</span><b>/</b><strong id="breadcrumbView">All prompts</strong></div>
+        <div class="top-actions">
+          <button class="secondary-button community-jump" id="communityJump" type="button" aria-controls="community" aria-expanded="false">Explore community ↘</button><span class="local-indicator"><i></i> PROMPT ARCHIVE</span>
+          <button class="icon-button" id="importBtn" aria-label="Import prompts" title="Import prompts">⇧</button>
+          <button class="avatar" id="aboutBtn" aria-label="About Prompt Arch" title="About Prompt Arch">PA</button>
+        </div>
+      </header>
+      <section class="hero">
+        <div class="hero-copy"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR SECOND BRAIN, IN WORDS</div><h1>Good thoughts<br>deserve <em>a home.</em></h1><p>A considered space for the prompts you return to, refine, and rely on.</p><div class="hero-meta"><span><b id="heroCount">00</b> PROMPTS COLLECTED</span><span class="meta-divider"></span><span>ONE LIBRARY. YOUR RULES.</span></div></div>
+        <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-core"><span>PA</span></div><div class="art-cross cross-a"></div><div class="art-cross cross-b"></div><div class="art-caption caption-top">FIG. 001 / THE ARCHIVE</div><div class="art-caption caption-bottom">THOUGHT → FORM → RESULT</div><div class="art-node node-a"></div><div class="art-node node-b"></div><div class="art-node node-c"></div></div>
+        <div class="hero-index">01 <span>—</span> COLLECT / CURATE / CREATE</div>
+      </section>
+      <section class="library-section">
+        <div class="section-heading"><div><div class="eyebrow muted-eyebrow">THE COLLECTION</div><h2 id="sectionTitle">Your library<span class="heading-period">.</span></h2></div><button class="new-prompt top-new" id="newPromptBtnTop"><span>＋</span> Add a prompt</button></div>
+        <div class="toolbar"><label class="search-box" for="searchInput"><span class="search-symbol">⌕</span><input id="searchInput" type="search" placeholder="Search prompts, tags, or ideas..." autocomplete="off"><kbd>⌘ K</kbd><button id="clearSearch" aria-label="Clear search" hidden>×</button></label><div class="toolbar-right"><label class="sort-label" for="sortSelect">SORT BY</label><select id="sortSelect" aria-label="Sort prompts"><option value="updated">Last edited</option><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="title">Title A–Z</option></select><button class="view-toggle active" id="gridViewBtn" aria-label="Grid view" title="Grid view">▦</button><button class="view-toggle" id="listViewBtn" aria-label="List view" title="List view">☷</button></div></div>
+        <div class="filter-row" id="filterRow"><span class="filter-label">QUICK FILTER</span><button class="filter-chip selected" data-filter="all">Everything</button><button class="filter-chip" data-filter="untagged">Unsorted</button><button class="filter-chip" data-filter="favorites">Starred</button><span class="filter-separator"></span><span class="result-count" id="resultCount">0 results</span></div>
+        <div id="promptGrid" class="prompt-grid" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state"><div class="empty-art"><span>✳</span><i></i><b></b></div><div class="eyebrow muted-eyebrow" id="emptyKicker">A BLANK CANVAS</div><h3 id="emptyTitle">Every great library starts somewhere.</h3><p id="emptyDescription">Save that prompt you keep rewriting. Future you will be glad.</p><button class="new-prompt" id="emptyAddBtn"><span>＋</span> Create your first prompt</button><button class="text-button" id="emptyImportBtn">or import an existing collection <span>↗</span></button></div>
+        <div class="bottom-note"><span class="note-mark">✳</span><span>YOUR IDEAS, WELL KEPT.</span><span class="note-line"></span><span>NO ACCOUNT. NO NOISE.</span></div>
+      </section>
+      <footer class="main-footer"><span>© PROMPT ARCH</span><span>MADE FOR THE CRAFT OF ASKING BETTER QUESTIONS.</span><button id="footerImportBtn">IMPORT / EXPORT ↗</button></footer>
+    </main>
+  </div>
+  <input id="fileInput" type="file" accept=".txt,.md,.json,.prompt,.prompts" multiple hidden><input id="jsonInput" type="file" accept=".json" hidden>
+  <dialog class="prompt-dialog" id="promptDialog" aria-labelledby="dialogTitle"><form id="promptForm" method="dialog"><div class="dialog-header"><div><div class="eyebrow muted-eyebrow" id="dialogEyebrow">ADD TO THE ARCHIVE</div><h2 id="dialogTitle">New prompt<span class="heading-period">.</span></h2></div><button type="button" class="icon-button close-dialog" id="closeDialog" aria-label="Close dialog">×</button></div><input type="hidden" id="promptId"><label class="field-label" for="promptTitle">TITLE <span>Give it a memorable name</span></label><input class="text-field" id="promptTitle" maxlength="120" required placeholder="e.g. The thoughtful product strategist"><div class="field-split"><div><label class="field-label" for="promptCategory">COLLECTION</label><select class="text-field" id="promptCategory"></select></div><div><label class="field-label" for="promptTags">TAGS <span>Comma separated</span></label><input class="text-field" id="promptTags" maxlength="240" placeholder="writing, strategy, coding"></div></div><label class="field-label" for="promptBody">THE PROMPT <span id="bodyCounter">0 characters</span></label><textarea class="text-field prompt-body" id="promptBody" required rows="9" placeholder="Write or paste your prompt here..."></textarea><div class="dialog-foot"><span class="private-note"><span>●</span> Saved locally on this device</span><div><button type="button" class="secondary-button" id="cancelDialog">Cancel</button><button type="submit" class="new-prompt save-button"><span>↗</span> Save prompt</button></div></div></form></dialog>
+  <dialog class="detail-dialog" id="detailDialog" aria-labelledby="detailTitle"><div class="detail-header"><div class="detail-meta"><span class="detail-category" id="detailCategory">UNCATEGORIZED</span><span id="detailDate"></span></div><button class="icon-button close-dialog" id="closeDetail" aria-label="Close prompt">×</button></div><h2 id="detailTitle"></h2><div class="detail-tags" id="detailTags"></div><pre id="detailBody" class="detail-body"></pre><div class="detail-footer"><span class="private-note"><span>●</span> LOCAL ARCHIVE</span><div><button class="secondary-button" id="detailEdit">Edit</button><button class="new-prompt" id="detailCopy"><span>▣</span> Copy prompt</button></div></div></dialog>
+  <dialog class="small-dialog" id="categoryDialog" aria-labelledby="categoryTitle"><form id="categoryForm" method="dialog"><div class="dialog-header"><div><div class="eyebrow muted-eyebrow">MAKE IT YOURS</div><h2 id="categoryTitle">New collection<span class="heading-period">.</span></h2></div><button type="button" class="icon-button close-dialog" id="closeCategory" aria-label="Close dialog">×</button></div><label class="field-label" for="categoryName">COLLECTION NAME</label><input class="text-field" id="categoryName" maxlength="32" required placeholder="e.g. Creative writing"><div class="dialog-foot"><span></span><div><button type="button" class="secondary-button" id="cancelCategory">Cancel</button><button type="submit" class="new-prompt">Create collection</button></div></div></form></dialog>
+  <dialog class="small-dialog" id="aboutDialog" aria-labelledby="aboutTitle"><div class="dialog-header"><div><div class="eyebrow muted-eyebrow">A TOOL FOR THOUGHTFUL WORK</div><h2 id="aboutTitle">Prompt Arch<span class="heading-period">.</span></h2></div><button type="button" class="icon-button close-dialog" id="closeAbout" aria-label="Close dialog">×</button></div><p class="about-copy">A personal prompt library designed like an archive: quiet, deliberate, and built around the ideas worth keeping.</p><div class="about-facts"><span>STORAGE</span><b>Browser local storage</b><span>PRIVACY</span><b>Your prompts stay on this device</b><span>PORTABILITY</span><b>Export your library as JSON anytime</b></div><button class="new-prompt full-button" id="aboutExport">↗ Export my library</button></dialog>
+  <div class="toast-region" id="toastRegion" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script><script type="module" src="./cloud.js"></script>
+</body>
+</html>
