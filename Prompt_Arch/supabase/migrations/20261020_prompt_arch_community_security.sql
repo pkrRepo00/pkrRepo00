@@ -41,6 +41,7 @@ create policy community_prompts_read_published on public.community_prompts for s
 drop policy if exists community_prompts_submit on public.community_prompts;
 create policy community_prompts_submit on public.community_prompts for insert to authenticated
   with check (created_by=(select auth.uid()) and status='pending');
+drop policy if exists community_prompts_update_owner_or_admin on public.community_prompts;
 drop policy if exists community_prompts_update_admin_only on public.community_prompts;
 create policy community_prompts_update_admin_only on public.community_prompts for update to authenticated
   using (private.is_prompt_arch_admin()) with check (private.is_prompt_arch_admin());
