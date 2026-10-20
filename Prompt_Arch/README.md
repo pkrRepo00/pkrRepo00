@@ -9,6 +9,7 @@ Prompt Arch is a monochrome prompt library with a local personal library and a S
 - **Preview media:** attach local image/video previews in My Library; community previews upload to Supabase Storage. Local previews use IndexedDB and stay on that browser/device.
 - **One-click templates:** photorealistic image, product photography, anime/concept art, cinematic video, image-to-video, character reference sheet, and AI agent/workflow.
 - **Tags and discovery:** suggested quick tags for visual prompts, type filters, full-text search across metadata, collections, favorites, grid/list views, and recent prompts.
+- **Complete copy:** copy actions preserve main prompt text and its model, aspect ratio, resolution, duration/FPS, style, camera, seed, and negative prompt when present.
 - **Community Prompts:** separate public searchable archive for approved prompts.
 - **Google sign-in:** Supabase Auth integration.
 - **Suggestion moderation:** community submissions enter a queue; only admins can publish, approve or reject.
