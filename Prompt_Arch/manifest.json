@@ -1,0 +1,18 @@
+{
+  "name": "Prompt Arch — Your prompt library",
+  "short_name": "Prompt Arch",
+  "description": "Discover, organize and share useful AI prompts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101010",
+  "theme_color": "#101010",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

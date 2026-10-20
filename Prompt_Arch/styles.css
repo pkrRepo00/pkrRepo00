@@ -153,3 +153,5 @@ video.prompt-card-media{object-fit:contain}
 .menu-glyph{display:block;line-height:1;font-size:19px}
 @media(max-width:760px){.sidebar{padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}.sidebar.open{box-shadow:20px 0 50px #0008}.mobile-menu[aria-expanded="true"]{background:#292925;border-color:#66665d;color:#fff;position:relative;z-index:21}body.sidebar-open{overflow:hidden;touch-action:none}.sidebar-backdrop{touch-action:pan-y}.topbar{position:sticky;top:0;z-index:18;background:#101010f2;backdrop-filter:blur(12px)}}
 @media(prefers-reduced-motion:reduce){.sidebar{transition:none}}
+
+.auth-forgot-link{display:block;margin:8px 0 12px auto;padding:4px 0;border:0;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;text-underline-offset:3px}.auth-forgot-link:hover{color:var(--text)}.auth-forgot-link:focus-visible{outline:2px solid var(--text);outline-offset:3px;border-radius:3px}.auth-forgot-link:disabled{opacity:.55;cursor:wait}
