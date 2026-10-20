@@ -4,10 +4,15 @@ Prompt Arch is a monochrome prompt library with a local personal library and a S
 
 ## Features
 - **My Library:** local-only prompt library, search, collections, imports/exports, favorites and copying.
-- **Community Prompts:** public searchable archive of approved prompts.
+- **Prompt types:** text, image, video, image-to-video, audio, AI agent, code, workflow, research, business, and other.
+- **Visual generation controls:** model/tool, aspect ratio, resolution, duration, FPS, visual style, camera movement, seed/parameters, and negative prompt.
+- **Preview media:** attach local image/video previews in My Library; community previews upload to Supabase Storage.
+- **One-click templates:** photorealistic image, product photography, anime/concept art, cinematic video, image-to-video, character reference sheet, and AI agent/workflow.
+- **Tags and discovery:** suggested quick tags for visual prompts, type filters, full-text search across metadata, collections, favorites, grid/list views, and recent prompts.
+- **Community Prompts:** separate public searchable archive for approved prompts.
 - **Google sign-in:** Supabase Auth integration.
 - **Suggestion moderation:** community submissions enter a queue; only admins can publish, approve or reject.
-- **Media previews:** image/video uploads to Supabase Storage.
+- **Bulk import/export:** local JSON/text import and export, plus admin JSON import for public prompts.
 
 ## Static hosting
 The app is static HTML, CSS and JavaScript and can be hosted on Cloudflare Pages. The folder includes the root app files and `supabase/schema.sql` for the backend schema.
