@@ -102,3 +102,8 @@ video.prompt-card-media{object-fit:contain}
   .detail-metadata{grid-template-columns:1fr}
   .prompt-type-badge{font-size:7px}
 }
+
+
+/* Keep account access visible in the main header */
+.account-access{white-space:nowrap;flex-shrink:0}
+@media(max-width:760px){.account-access{font-size:10px;padding:9px 10px}.top-actions{gap:7px}}
