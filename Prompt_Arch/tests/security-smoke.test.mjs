@@ -48,7 +48,7 @@ test("dynamic preview metadata escapes HTML-sensitive characters", () => {
 test("password recovery avoids account enumeration in its success message", () => {
   assert.match(cloud, /resetPasswordForEmail\(email/);
   assert.match(cloud, /updateUser\(\{password\}\)/);
-  assert.match(cloud, /event==="PASSWORD_RECOVERY"/);
+  assert.match(cloud, /event==="PASSWORD_RECOVERY"/);\n  assert.match(cloud, /authEmail").disabled=reset/);\n  assert.match(cloud, /Updating password…/);
   assert.match(cloud, /If an account exists for this email/);
   assert.match(html, /id="authForgotPassword"/);
 });
