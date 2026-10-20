@@ -3,9 +3,9 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
-const [headers, html, cloud, config, schema, manifest] = await Promise.all([
+const [headers, html, cloud, config, schema, manifest, app, worker, offline] = await Promise.all([
   read("../vercel.json"), read("../index.html"), read("../cloud.js"),
-  read("../config.js"), read("../supabase/schema.sql"), read("../manifest.json")
+  read("../config.js"), read("../supabase/schema.sql"), read("../manifest.json"), read("../app.js"), read("../sw.js"), read("../offline.html")
 ]);
 const headerConfig = JSON.parse(headers).headers.flatMap((route) => route.headers);
 const header = (name) => headerConfig.find((item) => item.key.toLowerCase() === name.toLowerCase())?.value;
@@ -63,4 +63,12 @@ test("SEO and install metadata are present", () => {
   assert.match(html, /rel="canonical"/);
   assert.match(html, /rel="manifest"/);
   assert.equal(JSON.parse(manifest).display, "standalone");
+});
+
+test("offline shell is registered and caches only same-origin GET assets", () => {
+  assert.match(app, /serviceWorker\.register\("\.\/sw\.js"\)/);
+  assert.match(worker, /request\.method !== "GET" \|\| url\.origin !== self\.location\.origin/);
+  assert.match(worker, /request\.mode === "navigate"/);
+  assert.match(worker, /caches\.match\("\.\/offline\.html"\)/);
+  assert.match(offline, /Community archives and sign-in need an internet connection/);
 });
