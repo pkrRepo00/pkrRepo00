@@ -43,7 +43,6 @@ create table if not exists public.prompts (
   media_type text,
   status text not null default 'published' check (status in ('draft','published','archived')),
   created_by uuid references auth.users(id) on delete set null,
-
   model_name text,
   aspect_ratio text,
   resolution text,
@@ -53,7 +52,7 @@ create table if not exists public.prompts (
   negative_prompt text,
   seed text,
   camera_movement text,
-    created_at timestamptz not null default now(),
+  created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
@@ -68,7 +67,6 @@ create table if not exists public.prompt_suggestions (
   media_type text,
   status text not null default 'pending' check (status in ('pending','approved','rejected')),
   created_by uuid not null references auth.users(id) on delete cascade,
-
   model_name text,
   aspect_ratio text,
   resolution text,
@@ -78,7 +76,7 @@ create table if not exists public.prompt_suggestions (
   negative_prompt text,
   seed text,
   camera_movement text,
-    created_at timestamptz not null default now(),
+  created_at timestamptz not null default now(),
   reviewed_by uuid references auth.users(id) on delete set null,
   reviewed_at timestamptz
 );
