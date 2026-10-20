@@ -143,7 +143,6 @@ video.prompt-card-media{object-fit:contain}
 .auth-google{justify-content:center}
 .auth-separator{display:flex;align-items:center;gap:12px;margin:15px 0 7px;color:#66665f;font:9px var(--mono);letter-spacing:1px}
 .auth-separator:before,.auth-separator:after{content:"";height:1px;flex:1;background:#2c2c28}
-.auth-forgot{display:block;margin:13px auto 0;color:#b6b5ad}
 .auth-privacy{margin:19px 0 0;padding-top:14px;border-top:1px solid #292925;color:#64645d;font-size:10px;line-height:1.6}
 .auth-dialog button:disabled{opacity:.55;cursor:wait}
 @media(max-width:480px){.auth-dialog form{padding:20px}}
