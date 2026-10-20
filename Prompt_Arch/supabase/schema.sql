@@ -43,7 +43,17 @@ create table if not exists public.prompts (
   media_type text,
   status text not null default 'published' check (status in ('draft','published','archived')),
   created_by uuid references auth.users(id) on delete set null,
-  created_at timestamptz not null default now(),
+
+  model_name text,
+  aspect_ratio text,
+  resolution text,
+  duration_seconds numeric,
+  fps integer,
+  style text,
+  negative_prompt text,
+  seed text,
+  camera_movement text,
+    created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
@@ -58,13 +68,25 @@ create table if not exists public.prompt_suggestions (
   media_type text,
   status text not null default 'pending' check (status in ('pending','approved','rejected')),
   created_by uuid not null references auth.users(id) on delete cascade,
-  created_at timestamptz not null default now(),
+
+  model_name text,
+  aspect_ratio text,
+  resolution text,
+  duration_seconds numeric,
+  fps integer,
+  style text,
+  negative_prompt text,
+  seed text,
+  camera_movement text,
+    created_at timestamptz not null default now(),
   reviewed_by uuid references auth.users(id) on delete set null,
   reviewed_at timestamptz
 );
 
 create index if not exists prompts_public_created_idx on public.prompts (created_at desc) where status = 'published';
 create index if not exists prompts_type_idx on public.prompts (prompt_type) where status = 'published';
+create index if not exists prompts_visual_type_created_idx on public.prompts (prompt_type, created_at desc) where status = 'published';
+create index if not exists prompt_suggestions_type_created_idx on public.prompt_suggestions (prompt_type, created_at desc) where status = 'pending';
 create index if not exists prompts_created_by_idx on public.prompts (created_by);
 create index if not exists suggestions_queue_idx on public.prompt_suggestions (created_at) where status = 'pending';
 create index if not exists suggestions_created_by_idx on public.prompt_suggestions (created_by);
