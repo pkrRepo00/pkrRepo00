@@ -33,7 +33,7 @@ Target: `Prompt_Arch/` static HTML/CSS/JavaScript app, Supabase Auth/Postgres/St
 
 ## Verification limits
 
-The included automated tests are static regression checks, not a full browser integration suite. Signup/login, OAuth callback, password-reset email delivery, upload/delete, admin moderation, RLS denial cases, touch-device QA, cross-browser behavior, Lighthouse scores, and Core Web Vitals still require live smoke/manual tests. No before/after performance numbers are asserted without measurements.
+The included automated suite has **8 static regression tests** and syntax checks for the main app, cloud module, and service worker; these are not a full browser integration suite. Signup/login, OAuth callback, password-reset email delivery, upload/delete, admin moderation, RLS denial cases, touch-device QA, cross-browser behavior, Lighthouse scores, and Core Web Vitals still require live smoke/manual tests. No before/after performance numbers are asserted without measurements.
 
 ## Required before production merge
 
