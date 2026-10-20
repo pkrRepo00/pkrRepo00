@@ -16,6 +16,9 @@ test("production response security headers are configured", () => {
   assert.equal(header("Referrer-Policy"), "strict-origin-when-cross-origin");
   assert.match(header("Strict-Transport-Security"), /max-age=63072000/);
   assert.match(header("Permissions-Policy"), /camera=\(\)/);
+  assert.ok(header("Content-Security-Policy-Report-Only").includes("default-src 'self'"));
+  assert.ok(header("Content-Security-Policy-Report-Only").includes("frame-ancestors 'none'"));
+  assert.ok(header("Content-Security-Policy-Report-Only").includes("https://esm.sh"));
 });
 
 test("browser configuration contains no server-side secret", () => {
