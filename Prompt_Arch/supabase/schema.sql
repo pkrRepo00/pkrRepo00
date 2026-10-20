@@ -94,11 +94,15 @@ alter table public.profiles enable row level security;
 alter table public.prompts enable row level security;
 alter table public.prompt_suggestions enable row level security;
 grant usage on schema public to anon, authenticated;
-grant usage on schema private to anon, authenticated;
-grant execute on function private.is_prompt_arch_admin() to anon, authenticated;
+grant usage on schema private to authenticated;
+revoke all on function private.is_prompt_arch_admin() from public, anon;
+grant execute on function private.is_prompt_arch_admin() to authenticated;
+revoke all on public.profiles from anon, authenticated;
 grant select on public.profiles to authenticated;
+revoke all on public.prompts from anon, authenticated;
 grant select on public.prompts to anon, authenticated;
 grant insert, update, delete on public.prompts to authenticated;
+revoke all on public.prompt_suggestions from anon, authenticated;
 grant select, insert, update on public.prompt_suggestions to authenticated;
 
 drop policy if exists profiles_read_own on public.profiles;
@@ -126,6 +130,75 @@ drop policy if exists admins_review_suggestions on public.prompt_suggestions;
 create policy admins_review_suggestions on public.prompt_suggestions for update to authenticated
 using (private.is_prompt_arch_admin()) with check (private.is_prompt_arch_admin());
 
+-- Community submissions are separate from permanent, administrator-curated prompts.
+create table if not exists public.community_prompts (
+  id uuid primary key default gen_random_uuid(),
+  title text not null check (char_length(title) between 1 and 120),
+  content text not null check (char_length(content) between 1 and 50000),
+  category text not null default 'Other',
+  prompt_type text not null default 'Other',
+  tags text[] not null default '{}',
+  media_url text,
+  media_type text,
+  status text not null default 'pending' check (status in ('pending','published','hidden')),
+  created_by uuid not null references auth.users(id) on delete cascade,
+  model_name text,
+  aspect_ratio text,
+  resolution text,
+  duration_seconds numeric,
+  fps integer,
+  style text,
+  negative_prompt text,
+  seed text,
+  camera_movement text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists community_prompts_published_idx
+  on public.community_prompts (created_at desc) where status = 'published';
+create index if not exists community_prompts_user_idx
+  on public.community_prompts (created_by, created_at desc);
+
+alter table public.community_prompts enable row level security;
+revoke all on public.community_prompts from anon, authenticated;
+grant select on public.community_prompts to anon, authenticated;
+grant insert, update, delete on public.community_prompts to authenticated;
+
+drop policy if exists community_prompts_read_published on public.community_prompts;
+create policy community_prompts_read_published on public.community_prompts
+  for select to anon, authenticated
+  using (status = 'published' or private.is_prompt_arch_admin());
+drop policy if exists community_prompts_submit on public.community_prompts;
+create policy community_prompts_submit on public.community_prompts for insert to authenticated
+  with check (created_by = (select auth.uid()) and status = 'pending');
+drop policy if exists community_prompts_update_owner_or_admin on public.community_prompts;
+drop policy if exists community_prompts_update_admin_only on public.community_prompts;
+create policy community_prompts_update_admin_only on public.community_prompts for update to authenticated
+  using (private.is_prompt_arch_admin()) with check (private.is_prompt_arch_admin());
+drop policy if exists community_prompts_delete_owner_or_admin on public.community_prompts;
+create policy community_prompts_delete_owner_or_admin on public.community_prompts for delete to authenticated
+  using (created_by = (select auth.uid()) or private.is_prompt_arch_admin());
+
+create or replace function private.enforce_community_prompt_submission()
+returns trigger
+language plpgsql
+security invoker
+set search_path = ''
+as $
+begin
+  if not private.is_prompt_arch_admin() then
+    new.created_by := (select auth.uid());
+    new.status := 'pending';
+  end if;
+  return new;
+end;
+$;
+revoke all on function private.enforce_community_prompt_submission() from public, anon, authenticated;
+drop trigger if exists enforce_community_prompt_submission on public.community_prompts;
+create trigger enforce_community_prompt_submission
+before insert on public.community_prompts
+for each row execute function private.enforce_community_prompt_submission();
+
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('prompt-media', 'prompt-media', true, 26214400,
   array['image/jpeg','image/png','image/webp','image/gif','video/mp4','video/webm','video/quicktime'])
@@ -137,4 +210,4 @@ create policy authenticated_upload_own_prompt_media on storage.objects for inser
 with check (bucket_id = 'prompt-media' and (storage.foldername(name))[1] = (select auth.uid())::text);
 drop policy if exists owners_delete_own_prompt_media on storage.objects;
 create policy owners_delete_own_prompt_media on storage.objects for delete to authenticated
-using (bucket_id = 'prompt-media' and (storage.foldername(name))[1] = (select auth.uid())::text);
+using (bucket_id = 'prompt-media' and ((storage.foldername(name))[1] = (select auth.uid())::text or private.is_prompt_arch_admin()));
