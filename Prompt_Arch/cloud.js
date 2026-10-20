@@ -114,7 +114,7 @@ document.querySelector("#cloudForm").addEventListener("submit",async e=>{
     notify(admin()?"Prompt published.":"Suggestion sent for review. Thank you.");
     document.querySelector("#cloudFormDialog").close();await loadPublic();await loadQueue();
   }catch(err){notify(err.message||"Could not submit prompt.",true);console.error(err)}
-  finally{b.disabled=false;b.textContent=admin()?"Publish prompt ↗":"Send suggestion ↗"}
+  finally{b.disabled=false;b.textContent=admin()?"Publish permanent prompt ↗":"Send for moderation ↗"}
 });
 document.querySelector("#suggestionsList").addEventListener("click",async e=>{
   const a=e.target.closest("[data-approve]"),r=e.target.closest("[data-reject]"),s=suggestions.find(x=>x.id===(a?.dataset.approve||r?.dataset.reject));if(!s)return;if(!admin()){notify("Admin access required.",true);return}
