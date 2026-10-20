@@ -124,3 +124,26 @@ video.prompt-card-media{object-fit:contain}
 #adminControlPanel .cloud-message{max-width:720px}
 #adminControlPanel[hidden]{display:none!important}
 @media(max-width:760px){.community-tabs{gap:6px}.community-tab{flex:1;padding:10px 7px}.community-section{margin-top:20px}.admin-panel-actions{align-items:flex-start;flex-direction:column}}
+
+
+/* Accessible sign-in and account creation modal. */
+.auth-dialog{width:min(440px,calc(100vw - 24px));max-width:440px;max-height:calc(100dvh - 24px);overflow:auto;padding:0;border:1px solid #383832;border-radius:9px;background:#151514;color:var(--text);box-shadow:0 24px 90px #000b}
+.auth-dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
+.auth-dialog form{padding:25px}
+.auth-intro{margin:0 0 18px;color:#999990;font-size:12px;line-height:1.65}
+.auth-mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:4px;background:#101010;border:1px solid #292925;border-radius:6px;margin-bottom:22px}
+.auth-mode-tab{padding:9px;border:1px solid transparent;border-radius:4px;background:transparent;color:#888880;font-size:12px}
+.auth-mode-tab.active{background:#252521;border-color:#393932;color:#efeee8}
+.auth-dialog .field-label{display:flex;margin:15px 0 8px;justify-content:space-between}
+.auth-dialog .text-field{width:100%;min-width:0;background:#101010}
+.auth-help{color:#898981;font-size:11px;line-height:1.55;margin:10px 0 14px}
+.auth-message{padding:10px 11px;border:1px solid #35352e;border-radius:5px;background:#20201c;color:#d4d3ca;font-size:12px;line-height:1.55;overflow-wrap:anywhere;margin:12px 0}
+.auth-message.error{border-color:#60403d;background:#281b1a;color:#f0b9b1}
+.auth-dialog .full-button{width:100%;margin-top:8px}
+.auth-google{justify-content:center}
+.auth-separator{display:flex;align-items:center;gap:12px;margin:15px 0 7px;color:#66665f;font:9px var(--mono);letter-spacing:1px}
+.auth-separator:before,.auth-separator:after{content:"";height:1px;flex:1;background:#2c2c28}
+.auth-forgot{display:block;margin:13px auto 0;color:#b6b5ad}
+.auth-privacy{margin:19px 0 0;padding-top:14px;border-top:1px solid #292925;color:#64645d;font-size:10px;line-height:1.6}
+.auth-dialog button:disabled{opacity:.55;cursor:wait}
+@media(max-width:480px){.auth-dialog form{padding:20px}}
