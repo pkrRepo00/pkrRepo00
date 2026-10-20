@@ -321,5 +321,6 @@
   });
   document.addEventListener("keydown", event => { if (event.key === "Escape" && els.sidebar.classList.contains("open")) { setSidebarOpen(false); mobileMenu.focus(); } });
   document.addEventListener("keydown", event => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); els.search.focus(); } if (!event.metaKey && !event.ctrlKey && !event.altKey && event.key.toLowerCase() === "n" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName) && !document.querySelector("dialog[open]")) { event.preventDefault(); openEditor(); } });
+  if ("serviceWorker" in navigator && window.isSecureContext) navigator.serviceWorker.register("./sw.js").catch(() => {});
   load(); render();
 })();
