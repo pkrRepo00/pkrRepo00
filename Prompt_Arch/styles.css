@@ -107,3 +107,20 @@ video.prompt-card-media{object-fit:contain}
 /* Keep account access visible in the main header */
 .account-access{white-space:nowrap;flex-shrink:0}
 @media(max-width:760px){.account-access{font-size:10px;padding:9px 10px}.top-actions{gap:7px}}
+
+
+/* Prompt Arch community-first navigation and explicit role-based admin controls */
+.community-section{margin:26px clamp(18px,4.4vw,64px) 0;padding-top:20px}
+.community-tabs{display:flex;gap:8px;border-bottom:1px solid #33332e;margin:20px 0 10px;padding-bottom:12px}
+.community-tab{border:1px solid #34342e;background:#141413;color:#a5a59b;border-radius:5px;padding:10px 14px;font:10px var(--mono);letter-spacing:.3px;cursor:pointer}
+.community-tab:hover{color:#fff;border-color:#77776b}
+.community-tab.active{color:#f4f3ec;background:#252521;border-color:#77776b}
+.community-view-note{font-size:11px;color:#8b8b81;margin:0 0 12px;line-height:1.65}
+.admin-panel-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:4px 0 24px}
+.admin-panel-actions .cloud-status{display:inline-flex}
+.queue-eyebrow{margin:12px 0}
+.community-tab:focus-visible,#adminControlBtn:focus-visible,#adminPublishPrompt:focus-visible{outline:2px solid #eee;outline-offset:3px}
+#adminControlPanel{scroll-margin-top:24px}
+#adminControlPanel .cloud-message{max-width:720px}
+#adminControlPanel[hidden]{display:none!important}
+@media(max-width:760px){.community-tabs{gap:6px}.community-tab{flex:1;padding:10px 7px}.community-section{margin-top:20px}.admin-panel-actions{align-items:flex-start;flex-direction:column}}
