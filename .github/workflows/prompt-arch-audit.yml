@@ -1,0 +1,23 @@
+name: Prompt Arch audit smoke checks
+
+on:
+  pull_request:
+    paths:
+      - "Prompt_Arch/**"
+      - ".github/workflows/prompt-arch-audit.yml"
+  push:
+    branches: [main]
+    paths:
+      - "Prompt_Arch/**"
+      - ".github/workflows/prompt-arch-audit.yml"
+
+jobs:
+  security-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run static security regression tests
+        run: node --test Prompt_Arch/tests/security-smoke.test.mjs
